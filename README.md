@@ -1,16 +1,17 @@
 # thumbor-piliptc-engine
 
-thumbor-piliptc-engine is a patched version from the legacy Pil imaging engine for [thumbor][].
+thumbor-piliptc-engine is a patched version from the legacy Pil imaging engine for [thumbor](https://github.com/thumbor/thumbor).
 
 
 ## Installation
 
-You can install the package from [PyPI][] with `pip`:
+You can install the package from this repository with `pip`:
 
     $ pip install git+https://github.com/gdegoulet/thumbor-piliptc-engine 
 
 ### Requirements
 -   Python 3.7 or higher
+-   Thumbor 7.4.7 or higher (it maybe work with older version >= 7.1.0 : i will test later for compatibility matrix )
 -   git (for now, you can only install from github repository )
 -   iptcinfo3 (configured as dependance)
 
