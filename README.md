@@ -1,3 +1,19 @@
+# thumbor-piliptc-engine
+
+thumbor-piliptc-engine is a patched version from the legacy Pil imaging engine for [thumbor][].
+
+
+## Installation
+
+You can install the package from [PyPI][] with `pip`:
+
+    $ pip install git+https://github.com/gdegoulet/thumbor-piliptc-engine 
+
+### Requirements
+-   Python 3.7 or higher
+-   git (for now, you can only install from github repository )
+-   iptcinfo3 (configured as dependance)
+
 ```
 root@44171bd2df65:/src# pip install     --no-cache-dir     --prefix="${PYTHONUSERBASE}" git+https://github.com/gdegoulet/thumbor-piliptc-engine
 
@@ -31,9 +47,19 @@ Installing collected packages: iptcinfo3, thumbor-piliptc-engine
 Successfully installed iptcinfo3-2.1.4 thumbor-piliptc-engine-0.0.1
 ```
 
-```
+
+## Usage
+
+To use this engine with thumbor, define `thumbor_piliptc_engine` as the imaging
+engine in `thumbor.conf`:
+
+```python
 ENGINE = "thumbor_piliptc_engine"
 ```
+
+
+## Example
+
 
 ```
 wget https://i.f1g.fr/media/cms/509x286_crop/2022/11/21/76bde3fc961f0fa8733756922d1e2ed06311d804ec38b89dc60d6ba36d30e046.jpg
@@ -122,6 +148,9 @@ test.jpg:
  2:120    Caption/Abstract     String     242  A Ukrainian soldier walks in front of a destroyed building of the International Airport of Kherson in the village of Chornobaivka, outskirts of Kherson, on November 20, 2022, amid the Russian invasion of Ukraine. (Photo by BULENT KILIC / AFP)
  2:135    Language Identifier  String       2  EN
 ```
+
+## Logs
+
 
 ```
 root@44171bd2df65:/src# thumbor --port=8000 --conf=/usr/src/app/thumbor.conf -l DEBUG
