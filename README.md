@@ -122,3 +122,48 @@ test.jpg:
  2:120    Caption/Abstract     String     242  A Ukrainian soldier walks in front of a destroyed building of the International Airport of Kherson in the village of Chornobaivka, outskirts of Kherson, on November 20, 2022, amid the Russian invasion of Ukraine. (Photo by BULENT KILIC / AFP)
  2:135    Language Identifier  String       2  EN
 ```
+
+```
+root@44171bd2df65:/src# thumbor --port=8000 --conf=/usr/src/app/thumbor.conf -l DEBUG
+2023-03-09 18:05:48 root:DEBUG thumbor starting at 0.0.0.0:8000
+2023-03-09 18:05:48 asyncio:DEBUG Using selector: EpollSelector
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: inc: response.count:1
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: inc: response.none_smart:1
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: timing: response.none_smart:0
+2023-03-09 18:05:53 thumbor:DEBUG [RESULT_STORAGE] getting from /data/thumbor/result_storage/default/16/10/fc6d87db0af8192db5a48d82b016d4c28918
+2023-03-09 18:05:53 thumbor:DEBUG [RESULT_STORAGE] image not found at /data/thumbor/result_storage/default/16/10/fc6d87db0af8192db5a48d82b016d4c28918
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: timing: result_storage.incoming_time:0
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: inc: result_storage.miss:1
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: inc: storage.miss:1
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: timing: original_image.fetch.200.i_f1g_fr:47
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: inc: original_image.fetch.200.i_f1g_fr:1
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: inc: original_image.status.200:1
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: inc: original_image.status.200.i_f1g_fr:1
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: inc: original_image.response_bytes:38698
+2023-03-09 18:05:53 thumbor:DEBUG IPTC_PASSTHROUGH original image saved as /tmp/tmp3shuu1c0.original
+2023-03-09 18:05:53 thumbor:DEBUG IPTC_PASSTHROUGH removing /tmp/tmp3shuu1c0.original
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: timing: iptc_passthrough_create_image.time:4
+2023-03-09 18:05:53 thumbor:DEBUG creating tempfile for i.f1g.fr/media/cms/509x286_crop/2022/11/21/76bde3fc961f0fa8733756922d1e2ed06311d804ec38b89dc60d6ba36d30e046.jpg in /data/thumbor/storage/c8/a265b39d5bec5b40ca5a3714d34fbc04be5aae.7284027584e04272bc29e4711fb437ef...
+2023-03-09 18:05:53 thumbor:DEBUG moving tempfile /data/thumbor/storage/c8/a265b39d5bec5b40ca5a3714d34fbc04be5aae.7284027584e04272bc29e4711fb437ef to /data/thumbor/storage/c8/a265b39d5bec5b40ca5a3714d34fbc04be5aae...
+2023-03-09 18:05:53 thumbor:DEBUG No image format specified. Retrieving from the image extension: .jpg.
+2023-03-09 18:05:53 thumbor:DEBUG Content Type of image/jpeg detected.
+2023-03-09 18:05:53 thumbor:DEBUG IPTC_PASSTHROUGH saving result image to /tmp/tmpcn25mo6d.result
+2023-03-09 18:05:53 thumbor:DEBUG IPTC_PASSTHROUGH reading new results from temporary file /tmp/tmpcn25mo6d.result
+2023-03-09 18:05:53 thumbor:DEBUG IPTC_PASSTHROUGH removing /tmp/tmpcn25mo6d.result
+2023-03-09 18:05:53 thumbor:DEBUG IPTC_PASSTHROUGH done
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: timing: iptc_passthrough_read.time:6
+2023-03-09 18:05:53 tornado.access:INFO 200 GET /unsafe/filters:quality(60)/i.f1g.fr/media/cms/509x286_crop/2022/11/21/76bde3fc961f0fa8733756922d1e2ed06311d804ec38b89dc60d6ba36d30e046.jpg (10.201.2.1) 81.57ms
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: timing: response.time:80
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: timing: response.time.200:80
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: inc: response.status.200:1
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: inc: response.not_smart.count:1
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: timing: response.not_smart.latency:80
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: inc: response.format.jpg:1
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: timing: response.time.jpg:80
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: inc: response.bytes.jpg:31970
+2023-03-09 18:05:53 thumbor:DEBUG [RESULT_STORAGE] putting at /data/thumbor/result_storage/default/16/10/fc6d87db0af8192db5a48d82b016d4c28918 (/data/thumbor/result_storage/default/16/10)
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: inc: result_storage.bytes_written:31970
+2023-03-09 18:05:53 thumbor:DEBUG METRICS: timing: result_storage.outgoing_time:0
+```
+
+```
