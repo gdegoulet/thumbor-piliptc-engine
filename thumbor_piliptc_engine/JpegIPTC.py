@@ -17,7 +17,7 @@
 # This program is free software; you can redistribute it and/or modify
 # it under the same terms as Python itself.
 #
-# VERSION = '0.2';
+# VERSION = '0.3';
 
 from io import BytesIO
 import contextlib
@@ -412,8 +412,9 @@ class JpegIPTC:
         (start, end, adobe) = jpeg_parts
         tmpfh = BytesIO()
         tmpfh.write(start)
-        data = self._photoshopIIMBlock(adobe, self.raw_iptc)
-        tmpfh.write(data)
+        if self.raw_iptc is not None:
+            data = self._photoshopIIMBlock(adobe, self.raw_iptc)
+            tmpfh.write(data)
         tmpfh.write(end)
         tmpfh.flush()
         tmpfh.seek(0)
