@@ -118,12 +118,13 @@ class Engine(BaseEngine):
         if IPTC_PASSTHROUGH:
             # we need to fetch iptc data from "not modified" or "Pil read" image source
             # buffer contains original image
-            # we need a file to use IPTCInfo : we save original buffer stream ( transported by self.iptc ) to local temporary file
             # we try to read iptc data from original file : iptc data saved to self.iptc
             iptc_start = datetime.datetime.now()
-            with SpooledTemporaryFile(max_size=16777216, mode='w+b') as iptc_passthrough_temp_file_name_original:
-                iptc_passthrough_temp_file_name_original.write(buffer)
-                info = IPTCInfo(iptc_passthrough_temp_file_name_original)
+            tmpfh = BytesIO()
+            tmpfh.write(buffer)
+            tmpfh.flush()
+            tmpfh.seek(0)
+            info = IPTCInfo(tmpfh)
             if info.__dict__ != '':
                 self.iptc = info.__dict__['_data'].copy()
             iptc_total_time = ( datetime.datetime.now() - iptc_start).total_seconds() * 1000
