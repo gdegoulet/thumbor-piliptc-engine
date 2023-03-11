@@ -148,14 +148,25 @@ iptc test.jpg
 test.jpg:
  Tag      Name                 Type      Size  Value
  -------- -------------------- --------- ----  -----
- 2:000    Record Version       Short        2  4
+ 1:000    Model Version        Short        2  2
+ 1:020    File Format          Short        2  1
+ 1:022    File Version         Short        2  2
+ 1:030    Service Identifier   String       9  AFP-PHOTO
+ 1:040    Envelope Number      NumString    8  12345678
+ 1:060    Envelope Priority    NumString    1  5
+ 1:070    Date Sent            Date         8  20221120
+ 1:080    Time Sent            Time        11  210118+0000
+ 1:090    Coded Character Set  Binary       3  1b 2d 41
+ 1:100    Unique Name of Objec String      11  AFP_32PC4R2
+ 2:000    Record Version       Short        2  2
+ 2:005    Object Name          String      27  UKRAINE-RUSSIA-WAR-CONFLICT
+ 2:010    Urgency              NumString    1  5
+ 2:012:00 Subject Reference    String      45  IPTC:16009000:unrest, conflicts and  war:war:
+ 2:012:01 Subject Reference    String      41  IPTC:16000000:unrest, conflicts and  war:
+ 2:015    Category             String       3  WAR
  2:020    Supplemental Categor String       3  war
  2:025:00 Keywords             String       3  war
  2:025:01 Keywords             String      10  Horizontal
- 2:005    Object Name          String      27  UKRAINE-RUSSIA-WAR-CONFLICT
- 2:010    Urgency              NumString    1  5
- 2:012    Subject Reference    String      41  IPTC:16000000:unrest, conflicts and  war:
- 2:015    Category             String       3  WAR
  2:055    Date Created         Date         8  20221120
  2:060    Time Created         Time        11  152935+0300
  2:062    Digital Creation Dat Date         8  20221120
