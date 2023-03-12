@@ -35,6 +35,15 @@ v0.1.0 : pre-release : just a proof of concept : working version but not ready f
 [https://hub.docker.com/repository/docker/gdegoulet/thumbor_piliptc_engine/general](https://hub.docker.com/repository/docker/gdegoulet/thumbor_piliptc_engine/general)
 
 ```
+docker run --rm -it gdegoulet/thumbor_piliptc_engine:latest      pip list | egrep -i "(thumbor|iptc|jpeg|pillow)"
+JpegIPTC               1.1
+libthumbor             2.0.2
+Pillow                 9.4.0
+thumbor                7.4.7
+thumbor-piliptc-engine 1.1.0
+thumbor-plugins        0.2.4
+thumbor-plugins-gifv   0.1.2
+
 docker run --rm -it -p8902:8000 \
   -e LOG_LEVEL=DEBUG \
   -e ENGINE=thumbor_piliptc_engine \
