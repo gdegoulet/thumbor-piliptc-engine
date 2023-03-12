@@ -11,7 +11,7 @@ this project is related with tis issue : [Preserve IPTC metadata #1301](https://
 
 So we must choose between legacy  engine 'thumbor.engines.pil' (Pillow) or 'thumbor_wand_engine' (imagemagick) if you want to preserve original image IPTC tags.
 
-I tried the thumbor_wand_engine : it works fine ! it's maybe slower than "pil" but thumbor generated image contains iptc tags.
+I tried the thumbor_wand_engine : it works fine ! it's maybe slower than "pil" but thumbor generated image preserving iptc tags.
 
 ![](/pil-vs-wand-2.png?raw=true)
 
