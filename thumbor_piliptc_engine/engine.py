@@ -120,8 +120,9 @@ class Engine(BaseEngine):
             # buffer contains original image
             # we try to read iptc data from original file : iptc data saved to self.iptc
             iptc_start = datetime.datetime.now()
-            jpegiptc_object = JpegIPTC(buffer)
-            self.iptc = jpegiptc_object.raw_iptc
+            jpegiptc_object = JpegIPTC()
+            jpegiptc_object.load_from_binarydata(buffer)
+            self.iptc = jpegiptc_object.get_raw_iptc()
             iptc_total_time = ( datetime.datetime.now() - iptc_start).total_seconds() * 1000
             self.context.metrics.timing("iptc_passthrough_create_image.time", iptc_total_time)
 
@@ -452,7 +453,8 @@ class Engine(BaseEngine):
 
         if IPTC_PASSTHROUGH and self.iptc is not None:
             iptc_start = datetime.datetime.now()
-            jpegiptc_object_d = JpegIPTC(results)
+            jpegiptc_object_d = JpegIPTC()
+            jpegiptc_object_d.load_from_binarydata(results)
             jpegiptc_object_d.set_raw_iptc(self.iptc)
             newresults = jpegiptc_object_d.dump()
             if newresults is not None:
