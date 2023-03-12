@@ -76,7 +76,7 @@ test.jpg:
 
 You can install the package from this repository with `pip`:
 
-    $ pip install git+https://github.com/gdegoulet/thumbor-piliptc-engine 
+    $ pip install git+https://github.com/gdegoulet/thumbor-piliptc-engine@v1.1.0
 
 ### Requirements
 -   Python 3.7 or higher
