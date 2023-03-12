@@ -22,7 +22,7 @@ from thumbor.engines import BaseEngine
 from thumbor.engines.extensions.pil import GifWriter
 from thumbor.filters.fill import Filter
 from thumbor.utils import deprecated, ensure_srgb, get_color_space, logger
-from thumbor_piliptc_engine.JpegIPTC import JpegIPTC
+from JpegIPTC import JpegIPTC
 
 try:
     from thumbor.ext.filters import _composite
