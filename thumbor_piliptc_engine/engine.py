@@ -112,6 +112,7 @@ class Engine(BaseEngine):
             img = Image.open(BytesIO(buffer))
         except DECOMPRESSION_BOMB_EXCEPTIONS as error:
             logger.warning("[PILEngine] create_image failed: %s", error)
+
             return None
 
         if IPTC_PASSTHROUGH:
