@@ -2,6 +2,8 @@
 
 thumbor-piliptc-engine is a patched version from the legacy Pil imaging engine for [thumbor](https://github.com/thumbor/thumbor).
 
+![](/thumbor-piliptc-engine.png?raw=true)
+
 this project is related with tis issue : [Preserve IPTC metadata #1301](https://github.com/thumbor/thumbor/issues/1301)
 > [kkopachev](https://github.com/kkopachev) This is not possible now with default Pillow engine, as Pillow itself does not have a way to save IPTC/XMP data.
 
