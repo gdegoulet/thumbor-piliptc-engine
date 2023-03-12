@@ -26,7 +26,7 @@ In a near futur, i will try to "merge request" this feature on thumbor official 
 
 v0.1.0 : pre-release : just a proof of concept : working version but not ready for production
 
-**v0.2.0 : remove iptcinfo3 package requirement : write my own iptc raw copy class to optimize usage within thumbor**
+**v0.2.0 : remove [iptcinfo3](https://github.com/james-see/iptcinfo3) package requirement : write my own iptc raw copy class to optimize usage within thumbor**
 
 **v1.0.0 : add [JpegIPTC](https://github.com/gdegoulet/JpegIPTC) package**
 
