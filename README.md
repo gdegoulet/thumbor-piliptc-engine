@@ -22,7 +22,7 @@ I don't want to speak here about avantage/disavantage from each engine : speed, 
 **I wanted to stay on "pil" engine and provide IPTC preservation : so i start this small project.**
 
 
-In a near futur, i will try to "merge request" this feature on thumbor official project but it can be rejected because i add a new package dependance with iptcinfo3.
+In a near futur, i will try to "merge request" this feature on thumbor official project but it can be rejected because i add a new package dependance with [iptcinfo3](https://github.com/james-see/iptcinfo3).
 
 v0.1.0 : pre-release : just a proof of concept : working version but not ready for production
 
