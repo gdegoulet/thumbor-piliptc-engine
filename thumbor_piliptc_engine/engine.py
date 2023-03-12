@@ -12,7 +12,7 @@ import os
 import datetime
 from io import BytesIO
 from subprocess import PIPE, Popen
-from tempfile import mkstemp, NamedTemporaryFile
+from tempfile import mkstemp, NamedTemporaryFile,SpooledTemporaryFile
 
 import piexif
 from PIL import Image, ImageDraw, ImageFile, ImageSequence, JpegImagePlugin
@@ -117,23 +117,14 @@ class Engine(BaseEngine):
         if IPTC_PASSTHROUGH:
             # we need to fetch iptc data from "not modified" or "Pil read" image source
             # buffer contains original image
-            iptc_start = datetime.datetime.now()
-            with NamedTemporaryFile(dir='/tmp', delete=False) as tmpfile:
-                iptc_passthrough_temp_file_name = tmpfile.name
-            iptc_passthrough_temp_file_name_original = iptc_passthrough_temp_file_name+ '.original'
             # we need a file to use IPTCInfo : we save original buffer stream ( transported by self.iptc ) to local temporary file
-            with open(iptc_passthrough_temp_file_name_original, "wb") as binary_file:
-                binary_file.write(buffer)
-            logger.debug("IPTC_PASSTHROUGH original image saved as "+iptc_passthrough_temp_file_name_original)
-
             # we try to read iptc data from original file : iptc data saved to self.iptc
-            info = IPTCInfo(iptc_passthrough_temp_file_name_original)
+            iptc_start = datetime.datetime.now()
+            with SpooledTemporaryFile(max_size=16777216, mode='w+b') as iptc_passthrough_temp_file_name_original:
+                iptc_passthrough_temp_file_name_original.write(buffer)
+                info = IPTCInfo(iptc_passthrough_temp_file_name_original)
             if info.__dict__ != '':
                 self.iptc = info.__dict__['_data'].copy()
-            # removing original image
-            logger.debug("IPTC_PASSTHROUGH removing "+iptc_passthrough_temp_file_name_original)
-            os.remove(iptc_passthrough_temp_file_name_original)
-            #
             iptc_total_time = ( datetime.datetime.now() - iptc_start).total_seconds() * 1000
             self.context.metrics.timing("iptc_passthrough_create_image.time", iptc_total_time)
 
