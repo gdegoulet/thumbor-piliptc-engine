@@ -12,7 +12,7 @@ from os import path
 from setuptools import setup
 
 
-VERSION = "0.3.0"
+VERSION = "1.1.0"
 
 
 def read_readme_contents():
