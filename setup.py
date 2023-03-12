@@ -12,7 +12,7 @@ from os import path
 from setuptools import setup
 
 
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 
 
 def read_readme_contents():
@@ -67,8 +67,7 @@ setup(
     include_package_data=True,
     install_requires=[
         "thumbor",
-        "pillow",
-        "iptcinfo3"
+        "pillow"
     ],
     extras_require={
         "tests": tests_require,

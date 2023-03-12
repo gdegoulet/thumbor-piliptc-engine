@@ -22,7 +22,11 @@ I don't want to speak here about avantage/disavantage from each engine : speed, 
 **I wanted to stay on "pil" engine and provide IPTC preservation : so i start this small project.**
 
 
-In a near futur, i will try to "merge request" this feature on thumbor official project but it can be reject because i add a new package dependance with iptcinfo3.
+In a near futur, i will try to "merge request" this feature on thumbor official project but it can be rejected because i add a new package dependance with iptcinfo3.
+
+v0.1.0 : pre-release : just a proof of concept : working version but not ready for production
+
+**v0.2.0 : remove iptcinfo3 package requirement : write my own iptc tar raw copy class to optimize usage within thumbor**
 
 ## Installation
 
@@ -39,34 +43,33 @@ You can install the package from this repository with `pip`:
 ```
 root@44171bd2df65:/src# pip install     --no-cache-dir     --prefix="${PYTHONUSERBASE}" git+https://github.com/gdegoulet/thumbor-piliptc-engine
 
-Collecting git+https://github.com/gdegoulet/thumbor-piliptc-engine
-  Cloning https://github.com/gdegoulet/thumbor-piliptc-engine to /tmp/pip-req-build-wjke7sx1
-  Running command git clone --filter=blob:none --quiet https://github.com/gdegoulet/thumbor-piliptc-engine /tmp/pip-req-build-wjke7sx1
-  Resolved https://github.com/gdegoulet/thumbor-piliptc-engine to commit 1d177cb44867a1b6dd3bd4e79551106c61b49750
+Processing ./thumbor-piliptc-engine
   Installing build dependencies ... done
   Getting requirements to build wheel ... done
   Preparing metadata (pyproject.toml) ... done
-Requirement already satisfied: thumbor in /app/lib/python3.11/site-packages (from thumbor-piliptc-engine==0.0.1) (7.4.7)
-Requirement already satisfied: pillow in /app/lib/python3.11/site-packages (from thumbor-piliptc-engine==0.0.1) (9.4.0)
-Collecting iptcinfo3
-  Downloading IPTCInfo3-2.1.4-py3-none-any.whl (12 kB)
-Requirement already satisfied: colorama==0.*,>=0.4.3 in /app/lib/python3.11/site-packages (from thumbor->thumbor-piliptc-engine==0.0.1) (0.4.6)
-Requirement already satisfied: derpconf==0.*,>=0.8.3 in /app/lib/python3.11/site-packages (from thumbor->thumbor-piliptc-engine==0.0.1) (0.8.3)
-Requirement already satisfied: libthumbor==2.*,>=2.0.2 in /app/lib/python3.11/site-packages (from thumbor->thumbor-piliptc-engine==0.0.1) (2.0.2)
-Requirement already satisfied: piexif==1.*,>=1.1.3 in /app/lib/python3.11/site-packages (from thumbor->thumbor-piliptc-engine==0.0.1) (1.1.3)
-Requirement already satisfied: pytz>=2019.3.0 in /app/lib/python3.11/site-packages (from thumbor->thumbor-piliptc-engine==0.0.1) (2022.7.1)
-Requirement already satisfied: statsd==3.*,>=3.3.0 in /app/lib/python3.11/site-packages (from thumbor->thumbor-piliptc-engine==0.0.1) (3.3.0)
-Requirement already satisfied: tornado==6.*,>=6.0.3 in /app/lib/python3.11/site-packages (from thumbor->thumbor-piliptc-engine==0.0.1) (6.2)
-Requirement already satisfied: thumbor-plugins-gifv==0.*,>=0.1.2 in /app/lib/python3.11/site-packages (from thumbor->thumbor-piliptc-engine==0.0.1) (0.1.2)
-Requirement already satisfied: webcolors==1.*,>=1.10.0 in /app/lib/python3.11/site-packages (from thumbor->thumbor-piliptc-engine==0.0.1) (1.11.1)
-Requirement already satisfied: six in /app/lib/python3.11/site-packages (from derpconf==0.*,>=0.8.3->thumbor->thumbor-piliptc-engine==0.0.1) (1.16.0)
+Requirement already satisfied: thumbor in /app/lib/python3.11/site-packages (from thumbor-piliptc-engine==0.2.0) (7.4.7)
+Requirement already satisfied: pillow in /app/lib/python3.11/site-packages (from thumbor-piliptc-engine==0.2.0) (9.4.0)
+Requirement already satisfied: colorama==0.*,>=0.4.3 in /app/lib/python3.11/site-packages (from thumbor->thumbor-piliptc-engine==0.2.0) (0.4.6)
+Requirement already satisfied: derpconf==0.*,>=0.8.3 in /app/lib/python3.11/site-packages (from thumbor->thumbor-piliptc-engine==0.2.0) (0.8.3)
+Requirement already satisfied: libthumbor==2.*,>=2.0.2 in /app/lib/python3.11/site-packages (from thumbor->thumbor-piliptc-engine==0.2.0) (2.0.2)
+Requirement already satisfied: piexif==1.*,>=1.1.3 in /app/lib/python3.11/site-packages (from thumbor->thumbor-piliptc-engine==0.2.0) (1.1.3)
+Requirement already satisfied: pytz>=2019.3.0 in /app/lib/python3.11/site-packages (from thumbor->thumbor-piliptc-engine==0.2.0) (2022.7.1)
+Requirement already satisfied: statsd==3.*,>=3.3.0 in /app/lib/python3.11/site-packages (from thumbor->thumbor-piliptc-engine==0.2.0) (3.3.0)
+Requirement already satisfied: tornado==6.*,>=6.0.3 in /app/lib/python3.11/site-packages (from thumbor->thumbor-piliptc-engine==0.2.0) (6.2)
+Requirement already satisfied: thumbor-plugins-gifv==0.*,>=0.1.2 in /app/lib/python3.11/site-packages (from thumbor->thumbor-piliptc-engine==0.2.0) (0.1.2)
+Requirement already satisfied: webcolors==1.*,>=1.10.0 in /app/lib/python3.11/site-packages (from thumbor->thumbor-piliptc-engine==0.2.0) (1.11.1)
+Requirement already satisfied: six in /app/lib/python3.11/site-packages (from derpconf==0.*,>=0.8.3->thumbor->thumbor-piliptc-engine==0.2.0) (1.16.0)
 Building wheels for collected packages: thumbor-piliptc-engine
   Building wheel for thumbor-piliptc-engine (pyproject.toml) ... done
-  Created wheel for thumbor-piliptc-engine: filename=thumbor_piliptc_engine-0.0.1-py3-none-any.whl size=8416 sha256=368c59be3be675c00ea6d5f6aa33bb095bcf671a0303f9493cd9e950f7c7abad
-  Stored in directory: /tmp/pip-ephem-wheel-cache-5fa3dug5/wheels/21/64/25/c294a71c2e9a294e2398ae7f49eb07e222d609cbc89c446f74
+  Created wheel for thumbor-piliptc-engine: filename=thumbor_piliptc_engine-0.2.0-py3-none-any.whl size=15470 sha256=2bb3b2ff8ae943acc8dc3169162e35879ba7075a8f80641468a6a4d75332117d
+  Stored in directory: /tmp/pip-ephem-wheel-cache-bzk5s7bo/wheels/f0/21/40/0e8f20f4be68abb8d80c9cf2fe548f6f3cfd352df72825930c
 Successfully built thumbor-piliptc-engine
-Installing collected packages: iptcinfo3, thumbor-piliptc-engine
-Successfully installed iptcinfo3-2.1.4 thumbor-piliptc-engine-0.0.1
+Installing collected packages: thumbor-piliptc-engine
+  Attempting uninstall: thumbor-piliptc-engine
+    Found existing installation: thumbor-piliptc-engine 0.0.1
+    Uninstalling thumbor-piliptc-engine-0.0.1:
+      Successfully uninstalled thumbor-piliptc-engine-0.0.1
+Successfully installed thumbor-piliptc-engine-0.2.0
 ```
 
 
