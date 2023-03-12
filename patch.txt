@@ -1,99 +1,64 @@
---- /Work/github/thumbor/thumbor/engines/pil.py	2023-03-09 22:30:33.742298682 +0100
-+++ /Work/github/thumbor-piliptc-engine/thumbor_piliptc_engine/engine.py	2023-03-09 22:32:41.202198616 +0100
-@@ -9,9 +9,10 @@
- # Copyright (c) 2011 globo.com thumbor@googlegroups.com
- 
- import os
-+import datetime
+--- /Work/github/thumbor/thumbor/engines/pil.py	2023-03-10 08:21:40.309213661 +0100
++++ /Work/github/thumbor-piliptc-engine/thumbor_piliptc_engine/engine.py	2023-03-10 08:37:52.203599185 +0100
+@@ -12,7 +12,7 @@
+ import datetime
  from io import BytesIO
  from subprocess import PIPE, Popen
--from tempfile import mkstemp
+-from tempfile import mkstemp, NamedTemporaryFile
 +from tempfile import mkstemp, NamedTemporaryFile,SpooledTemporaryFile
  
  import piexif
  from PIL import Image, ImageDraw, ImageFile, ImageSequence, JpegImagePlugin
-@@ -21,6 +22,7 @@
- from thumbor.engines.extensions.pil import GifWriter
- from thumbor.filters.fill import Filter
- from thumbor.utils import deprecated, ensure_srgb, get_color_space, logger
-+from iptcinfo3 import IPTCInfo
- 
- try:
-     from thumbor.ext.filters import _composite
-@@ -45,6 +47,7 @@
- HAVE_AVIF = _avif is not None
- HAVE_HEIF = HeifImagePlugin is not None
- 
-+IPTC_PASSTHROUGH = True
- 
- FORMATS = {
-     ".tif": "PNG",  # serve tif as png
-@@ -80,6 +83,8 @@
-         self.qtables = None
-         self.original_mode = None
-         self.exif = None
-+        # we need to save iptc data from original image between create_image and read function
-+        self.iptc = None
- 
-         try:
-             if self.context.config.MAX_PIXELS is None or int(
-@@ -109,6 +114,21 @@
+@@ -112,28 +112,20 @@
+             img = Image.open(BytesIO(buffer))
+         except DECOMPRESSION_BOMB_EXCEPTIONS as error:
              logger.warning("[PILEngine] create_image failed: %s", error)
- 
-             return None
 +
-+        if IPTC_PASSTHROUGH:
-+            # we need to fetch iptc data from "not modified" or "Pil read" image source
-+            # buffer contains original image
-+            # we need a file to use IPTCInfo : we save original buffer stream ( transported by self.iptc ) to local temporary file
-+            # we try to read iptc data from original file : iptc data saved to self.iptc
+             return None
+ 
+         if IPTC_PASSTHROUGH:
+             # we need to fetch iptc data from "not modified" or "Pil read" image source
+             # buffer contains original image
+-            iptc_start = datetime.datetime.now()
+-            with NamedTemporaryFile(dir='/tmp', delete=False) as tmpfile:
+-                iptc_passthrough_temp_file_name = tmpfile.name
+-            iptc_passthrough_temp_file_name_original = iptc_passthrough_temp_file_name+ '.original'
+             # we need a file to use IPTCInfo : we save original buffer stream ( transported by self.iptc ) to local temporary file
+-            with open(iptc_passthrough_temp_file_name_original, "wb") as binary_file:
+-                binary_file.write(buffer)
+-            logger.debug("IPTC_PASSTHROUGH original image saved as "+iptc_passthrough_temp_file_name_original)
+-
+             # we try to read iptc data from original file : iptc data saved to self.iptc
+-            info = IPTCInfo(iptc_passthrough_temp_file_name_original)
 +            iptc_start = datetime.datetime.now()
 +            with SpooledTemporaryFile(max_size=16777216, mode='w+b') as iptc_passthrough_temp_file_name_original:
 +                iptc_passthrough_temp_file_name_original.write(buffer)
 +                info = IPTCInfo(iptc_passthrough_temp_file_name_original)
-+            if info.__dict__ != '':
-+                self.iptc = info.__dict__['_data'].copy()
-+            iptc_total_time = ( datetime.datetime.now() - iptc_start).total_seconds() * 1000
-+            self.context.metrics.timing("iptc_passthrough_create_image.time", iptc_total_time)
-+
-         self.icc_profile = img.info.get("icc_profile")
-         self.exif = img.info.get("exif")
-         self.original_mode = img.mode
-@@ -429,11 +449,36 @@
-                 "Could not save as improved image, consider to increase ImageFile.MAXBLOCK"
-             )
-             self.image.save(img_buffer, FORMATS[ext])
--
-         results = img_buffer.getvalue()
-         img_buffer.close()
-         self.extension = ext
+             if info.__dict__ != '':
+                 self.iptc = info.__dict__['_data'].copy()
+-            # removing original image
+-            logger.debug("IPTC_PASSTHROUGH removing "+iptc_passthrough_temp_file_name_original)
+-            os.remove(iptc_passthrough_temp_file_name_original)
+-            #
+             iptc_total_time = ( datetime.datetime.now() - iptc_start).total_seconds() * 1000
+             self.context.metrics.timing("iptc_passthrough_create_image.time", iptc_total_time)
  
-+        if IPTC_PASSTHROUGH and self.iptc is not None:
-+            iptc_start = datetime.datetime.now()
-+            with NamedTemporaryFile(dir='/tmp', delete=False) as tmpfile:
-+                iptc_passthrough_temp_file_name = tmpfile.name
-+            iptc_passthrough_temp_file_name_result   = iptc_passthrough_temp_file_name+ '.result'
-+            # we need to save result image to local file to add iptc data fetched before
-+            with open(iptc_passthrough_temp_file_name_result, "wb") as binary_file:
-+                binary_file.write(results)
-+            logger.debug("IPTC_PASSTHROUGH saving result image to "+iptc_passthrough_temp_file_name_result)
-+
-+            info_result = IPTCInfo(iptc_passthrough_temp_file_name_result, force=True)
-+            info_result.__dict__['_data'] = self.iptc
-+            info_result.save()
-+
-+            # reading new result file with iptc data and override legacy" results var
-+            with open(iptc_passthrough_temp_file_name_result, mode='rb') as file:
-+                logger.debug("IPTC_PASSTHROUGH reading new results from temporary file "+iptc_passthrough_temp_file_name_result)
-+                results = file.read()
-+            # cleanup : removing temporary result file
-+            logger.debug("IPTC_PASSTHROUGH removing "+iptc_passthrough_temp_file_name_result)
-+            os.remove(iptc_passthrough_temp_file_name_result)
-+
-+            logger.debug("IPTC_PASSTHROUGH done")
-+            iptc_total_time = ( datetime.datetime.now() - iptc_start).total_seconds() * 1000
-+            self.context.metrics.timing("iptc_passthrough_read.time", iptc_total_time)
-+
-         return results
+@@ -463,7 +455,7 @@
  
-     def read_multiple(self, images, extension=None):
+         if IPTC_PASSTHROUGH and self.iptc is not None:
+             iptc_start = datetime.datetime.now()
+-            with NamedTemporaryFile(dir='/tmp', delete=False) as tmpfile:
++            with NamedTemporaryFile(dir='/tmp', delete=True) as tmpfile:
+                 iptc_passthrough_temp_file_name = tmpfile.name
+             iptc_passthrough_temp_file_name_result   = iptc_passthrough_temp_file_name+ '.result'
+             # we need to save result image to local file to add iptc data fetched before
+@@ -474,6 +466,9 @@
+             info_result = IPTCInfo(iptc_passthrough_temp_file_name_result, force=True)
+             info_result.__dict__['_data'] = self.iptc
+             info_result.save()
++            #
++            if os.path.exists(iptc_passthrough_temp_file_name_result+'~'):
++              os.remove(iptc_passthrough_temp_file_name_result+'~')
+ 
+             # reading new result file with iptc data and override legacy" results var
+             with open(iptc_passthrough_temp_file_name_result, mode='rb') as file:
