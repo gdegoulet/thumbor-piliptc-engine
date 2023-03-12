@@ -455,7 +455,7 @@ class Engine(BaseEngine):
 
         if IPTC_PASSTHROUGH and self.iptc is not None:
             iptc_start = datetime.datetime.now()
-            with NamedTemporaryFile(dir='/tmp', delete=False) as tmpfile:
+            with NamedTemporaryFile(dir='/tmp', delete=True) as tmpfile:
                 iptc_passthrough_temp_file_name = tmpfile.name
             iptc_passthrough_temp_file_name_result   = iptc_passthrough_temp_file_name+ '.result'
             # we need to save result image to local file to add iptc data fetched before
@@ -466,6 +466,9 @@ class Engine(BaseEngine):
             info_result = IPTCInfo(iptc_passthrough_temp_file_name_result, force=True)
             info_result.__dict__['_data'] = self.iptc
             info_result.save()
+            #
+            if os.path.exists(iptc_passthrough_temp_file_name_result+'~'):
+              os.remove(iptc_passthrough_temp_file_name_result+'~')
 
             # reading new result file with iptc data and override legacy" results var
             with open(iptc_passthrough_temp_file_name_result, mode='rb') as file:
