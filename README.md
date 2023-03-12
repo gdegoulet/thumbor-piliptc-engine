@@ -28,7 +28,7 @@ v0.1.0 : pre-release : just a proof of concept : working version but not ready f
 
 **v0.2.0 : remove iptcinfo3 package requirement : write my own iptc raw copy class to optimize usage within thumbor**
 
-**v1.0.0 : add JpegIPTC package ( same maintainer/author that this engine )**
+**v1.0.0 : add [JpegIPTC](https://github.com/gdegoulet/JpegIPTC) package**
 
 ## Try it !
 
