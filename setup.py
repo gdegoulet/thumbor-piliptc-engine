@@ -63,12 +63,12 @@ setup(
         "Topic :: Multimedia :: Graphics :: Presentation",
         "Environment :: Plugins",
     ],
-    python_requires='>=3.10',
+    python_requires='>=3.7',
     packages=["thumbor_piliptc_engine"],
     include_package_data=True,
     install_requires=[
-        "thumbor",
-        "pillow",
+        "thumbor>=7.1",
+        "pillow>=9.0",
         "JpegIPTC @ git+https://github.com/gdegoulet/JpegIPTC@v1.2"
     ],
     extras_require={
