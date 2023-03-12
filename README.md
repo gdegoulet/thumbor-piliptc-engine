@@ -4,14 +4,14 @@ thumbor-piliptc-engine is a patched version from the legacy Pil imaging engine f
 
 ![](/thumbor-piliptc-engine.png?raw=true)
 
-this project is related with tis issue : [Preserve IPTC metadata #1301](https://github.com/thumbor/thumbor/issues/1301)
+this project is related with this issue : [Preserve IPTC metadata #1301](https://github.com/thumbor/thumbor/issues/1301)
 > [kkopachev](https://github.com/kkopachev) This is not possible now with default Pillow engine, as Pillow itself does not have a way to save IPTC/XMP data.
 
 > [scorphus](https://github.com/scorphus) You can try and use thumbor-wand-engine, which is a new engine built on top of ImageMagick with support to IPTC/XMP data.
 
 So we must choose between legacy  engine 'thumbor.engines.pil' (Pillow) or 'thumbor_wand_engine' (imagemagick) if you want to preserve original image IPTC tags.
 
-I tried the thumbor_wand_engine : it works fine ! it's maybe slower than "pil" but thumbor generated image preserving iptc tags.
+I tried the thumbor_wand_engine : it works fine ! it's maybe slower than "pil" but "thumbor" generated image contains iptc tags.
 
 ![](/pil-vs-wand-2.png?raw=true)
 
