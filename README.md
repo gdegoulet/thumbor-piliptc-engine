@@ -17,7 +17,7 @@ I tried the thumbor_wand_engine : it works fine ! it's maybe slower than "pil" b
 
 **We need this feature for european/french laws compliance" about copyright.**
 
-I don't wank to speak here about avantage/disavantage from each engine : speed, memory consumption, image rendering/quality ...
+I don't want to speak here about avantage/disavantage from each engine : speed, memory consumption, image rendering/quality ...
 
 **I wanted to stay on "pil" engine and provide IPTC preservation : so i start this small project.**
 
