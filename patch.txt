@@ -1,5 +1,5 @@
 --- /tmp/pil.py	2023-03-11 13:17:24.049065367 +0100
-+++ /Work/github/thumbor-piliptc-engine/thumbor_piliptc_engine/engine.py	2023-03-11 13:18:34.581003695 +0100
++++ /Work/github/thumbor-piliptc-engine/thumbor_piliptc_engine/engine.py	2023-03-12 12:05:33.988909879 +0100
 @@ -9,6 +9,7 @@
  # Copyright (c) 2011 globo.com thumbor@googlegroups.com
  
@@ -33,7 +33,7 @@
  
          try:
              if self.context.config.MAX_PIXELS is None or int(
-@@ -109,6 +114,17 @@
+@@ -109,6 +114,18 @@
              logger.warning("[PILEngine] create_image failed: %s", error)
  
              return None
@@ -43,21 +43,23 @@
 +            # buffer contains original image
 +            # we try to read iptc data from original file : iptc data saved to self.iptc
 +            iptc_start = datetime.datetime.now()
-+            jpegiptc_object = JpegIPTC(buffer)
-+            self.iptc = jpegiptc_object.raw_iptc
++            jpegiptc_object = JpegIPTC()
++            jpegiptc_object.load_from_binarydata(buffer)
++            self.iptc = jpegiptc_object.get_raw_iptc()
 +            iptc_total_time = ( datetime.datetime.now() - iptc_start).total_seconds() * 1000
 +            self.context.metrics.timing("iptc_passthrough_create_image.time", iptc_total_time)
 +
          self.icc_profile = img.info.get("icc_profile")
          self.exif = img.info.get("exif")
          self.original_mode = img.mode
-@@ -434,6 +450,16 @@
+@@ -434,6 +451,17 @@
          img_buffer.close()
          self.extension = ext
  
 +        if IPTC_PASSTHROUGH and self.iptc is not None:
 +            iptc_start = datetime.datetime.now()
-+            jpegiptc_object_d = JpegIPTC(results)
++            jpegiptc_object_d = JpegIPTC()
++            jpegiptc_object_d.load_from_binarydata(results)
 +            jpegiptc_object_d.set_raw_iptc(self.iptc)
 +            newresults = jpegiptc_object_d.dump()
 +            if newresults is not None:

@@ -2,7 +2,7 @@
 # vim: fenc=utf-8 fileformat=unix:
 # Author: 2023 Guillaume Degoulet <jpegiptc@degoulet.net>
 #
-# Ported from James Campbell iptcinfo3 https://github.com/james-see/iptcinfo3 
+# Ported from James Campbell iptcinfo3 https://github.com/james-see/iptcinfo3
 # Ported from Josh Carter's Perl IPTCInfo.pm by Tamás Gulácsi
 #
 # IPTCInfo: extractor for IPTC metadata embedded in images
@@ -12,12 +12,12 @@
 #
 # This program is related with https://github.com/gdegoulet/thumbor-piliptc-engine
 # The purpose is to extract APP13 (iptc data) from image and raw copy APP13 to another image
-# Original image with IPTC tags --> thumbor transformation --> new image with original IPTC tags 
-#
+# Original image with IPTC tags --> thumbor transformation --> new image with original IPTC tags
+
 # This program is free software; you can redistribute it and/or modify
 # it under the same terms as Python itself.
 #
-# VERSION = '0.3';
+# VERSION = '1.0';
 
 from io import BytesIO
 import contextlib
@@ -101,7 +101,7 @@ class JpegIPTC:
                 self._seek_exactly(bytesio_obj, length)
             except EOFException:
                 return None
-        return (rSave is not None and [temp] or [True])[0]        
+        return (rSave is not None and [temp] or [True])[0]
 
     def _jpegScan(self,bytesio_obj):
         SOI = 0xd8  # Start of image
@@ -115,7 +115,7 @@ class JpegIPTC:
             return None
         if not (self._ord3(ff) == 0xff and self._ord3(soi) == SOI):
             self.error = "JpegScan: invalid start of file"
-            return None     
+            return None
         # Scan for the APP13 marker which will contain our IPTC info (I hope).
         while True:
             err = None
@@ -132,6 +132,7 @@ class JpegIPTC:
         return self._blindScan(bytesio_obj, MAX=self._jpeg_get_variable_length(bytesio_obj))
 
     def _blindScan(self,bytesio_obj,MAX=819200):
+        # https://help.accusoft.com/ImageGear-Net/v25.0/Windows/HTML/IPTC_Non-Image_Data_Structure.html
         offset = 0
         while offset <= MAX:
             try:
@@ -162,13 +163,15 @@ class JpegIPTC:
             # no tag, keep scanning
             offset += 1
         return False
-            
+
 
     def _scanToFirstIMMTag(self,bytesio_obj):
         if self.is_jpeg:
             return self._jpegScan(bytesio_obj)
         else:
-            return self._blindScan(bytesio_obj)
+            # seems to be something else than a regulat jpeg file, we don't want to loose time for blindScan
+            #return self._blindScan(bytesio_obj)
+            return False
 
     def _file_is_jpeg(self,bytesio_obj):
         SOI = 0xd8  # Start of image
@@ -271,7 +274,7 @@ class JpegIPTC:
                 out = [b''.join(out)]
                 if size % 2 != 0 and len(out[0]) % 2 != 0:
                     out.append(pack("B", 0))
-        return b''.join(out)        
+        return b''.join(out)
 
     def _jpeg_collect_file_parts(self,discard_app_parts=False):
         SOI = 0xd8  # Start of image
@@ -302,7 +305,7 @@ class JpegIPTC:
         app0data = self._jpeg_skip_variable(self.bytesio_obj, app0data)
         if app0data is None:
             raise Exception('jpeg_skip_variable failed')
-        
+
         if marker == APP0 or not discard_app_parts:
             # Always include APP0 marker at start if it's present.
             start.append(pack('BB', 0xff, marker))
@@ -317,7 +320,7 @@ class JpegIPTC:
             start.append(b'JFIF')  # format
             start.append(pack("BB", 1, 2))  # call it version 1.2 (current JFIF)
             start.append(pack('8B', 0, 0, 0, 0, 0, 0, 0, 0))  # zero everything else
-        
+
         # Now scan through all markers in file until we hit image data or
         # IPTC stuff.
         end = []
@@ -389,26 +392,63 @@ class JpegIPTC:
         out.append(resourceBlock)
         return b''.join(out)
 
-    def __init__(self, data):
+    def __del__(self):
         self.error = None
+        self.is_jpeg = False
+        self.bytesio_obj = None
+        self.finename = None
         self.raw_iptc = None
-        bytesio_obj = BytesIO()
-        bytesio_obj.write(data)
-        self.bytesio_obj = bytesio_obj
+
+    def __init__(self):
+        self.error = None
+        self.is_jpeg = False
+        self.bytesio_obj = None
+        self.finename = None
+        self.raw_iptc = None
+
+    def _fetch_iptc(self,bytesio_obj):
         self.is_jpeg = self._file_is_jpeg(bytesio_obj)
         datafound = self._scanToFirstIMMTag(bytesio_obj)
         if datafound:
             self.raw_iptc = self._RawcollectIIMInfo(bytesio_obj).getvalue()
 
+    def load_from_file(self,filename):
+        self.finename = filename
+        try:
+            with open(filename, "rb") as file:
+                bytesio_obj = file.read()
+                self.bytesio_obj = bytesio_obj
+                self._fetch_iptc(bytesio_obj)
+                return True
+        except:
+            return False
+
+    def load_from_binarydata(self,data):
+        bytesio_obj = BytesIO()
+        bytesio_obj.write(data)
+        self.bytesio_obj = bytesio_obj
+        self._fetch_iptc(bytesio_obj)
+        return True
+
     def set_raw_iptc(self,rawdata):
+        # when None ? set empty or remove iptc segment ?
+        # i prefere to remove it
+        #if rawdata is None:
+        #    rawdata = b''
         self.raw_iptc = rawdata
 
+    def get_raw_iptc(self):
+        return self.raw_iptc
+
+    def is_jpeg(self):
+        return self.is_jpeg
+
     def dump(self):
-        if not self.is_jpeg:
+        if not self.is_jpeg or self.bytesio_obj is None:
             return None
         jpeg_parts = self._jpeg_collect_file_parts()
         if jpeg_parts is None:
-            raise Exception('jpeg_collect_file_parts failed: %s' % self.error)
+            return None
         (start, end, adobe) = jpeg_parts
         tmpfh = BytesIO()
         tmpfh.write(start)
@@ -419,3 +459,28 @@ class JpegIPTC:
         tmpfh.flush()
         tmpfh.seek(0)
         return tmpfh.read()
+
+    # return True or False
+    # True if load_from_file and is_jpeg and self.bytesio_obj is not None
+    def save(self):
+        if self.bytesio_obj is None:
+            return False
+        if self.filename is None:
+            return False
+        return self.save_as(self.filename)
+
+    # return True or False
+    # True if self.bytesio_obj is not None
+    def save_as(self,output_filename):
+        if self.bytesio_obj is None:
+            return False
+        newresults = self.dump()
+        if newresults is None:
+            newresults = self.bytesio_obj.read()
+        try:
+            with open(output_filename, "wb") as binary_file:
+                binary_file.write(newresults)
+                binary_file.close()
+                return True
+        except:
+            return False
