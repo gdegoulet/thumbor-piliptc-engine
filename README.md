@@ -24,6 +24,8 @@ I don't want to speak here about avantage/disavantage from each engine : speed, 
 
 In a near futur, i will try to "merge request" this feature on thumbor official project but it can be rejected because i add a new package dependance with [iptcinfo3](https://github.com/james-see/iptcinfo3).
 
+## Releases:
+
 v0.1.0 : pre-release : just a proof of concept : working version but not ready for production
 
 **v0.2.0 : remove [iptcinfo3](https://github.com/james-see/iptcinfo3) package requirement : write my own iptc raw copy class to optimize usage within thumbor**
