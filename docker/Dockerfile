@@ -17,10 +17,9 @@ COPY install-pillow-SIMD.sh /install-pillow-SIMD.sh
 
 RUN mkdir "$PYTHONUSERBASE" /etc/thumbor \
  && apt-get update > /dev/null \
- && apt-get install -y -qq --no-install-recommends \
+ && apt-get install -y -qq --no-install-recommends --no-install-suggests \
     build-essential=12.9 \
     ca-certificates=20210119 \
-    cairosvg=2.5.0-1.1 \
     ffmpeg=${VERSION_ffmpeg} \
     graphicsmagick=${VERSION_graphicsmagick} \
     libboost-python-dev=1.74.0.3 \
@@ -33,6 +32,7 @@ RUN mkdir "$PYTHONUSERBASE" /etc/thumbor \
     libssl-dev \
     libtiff5-dev=4.2.0-1+deb11u1 \
     webp=0.6.1-2.1 \
+    libmagickwand-dev \
     git \
     > /dev/null \
  && python -m pip install --upgrade pip \
@@ -40,7 +40,7 @@ RUN mkdir "$PYTHONUSERBASE" /etc/thumbor \
     --no-cache-dir \
     --prefix="${PYTHONUSERBASE}" \
       envtpl==0.7.2 \
-      cairosvg==2.6.0 \
+      cairosvg>=2.6.0 \
       numpy==1.24.2 \
       opencv-python-headless==4.7.0.72 \
       pillow>=$PILLOW_VERSION_MIN \
@@ -54,6 +54,7 @@ RUN mkdir "$PYTHONUSERBASE" /etc/thumbor \
       tc-aws==7.0.2 \
       thumbor-plugins-gifv==0.1.2 \
       thumbor-plugins==0.2.4 \
+      thumbor-wand-engine \
       thumbor=="${THUMBOR_VERSION}" \
       git+https://github.com/gdegoulet/thumbor-piliptc-engine@v1.1.0 \
  && chmod +x /install-pillow-SIMD.sh \
@@ -106,6 +107,7 @@ RUN groupadd -g 301 ftponly \
     libjpeg62-turbo \
     libturbojpeg0 \
     libcurl4 \
+    imagemagick \
     webp=0.6.1-2.1 \
     curl wget procps \
     > /dev/null \

@@ -43,6 +43,7 @@ thumbor                7.4.7
 thumbor-piliptc-engine 1.1.0
 thumbor-plugins        0.2.4
 thumbor-plugins-gifv   0.1.2
+thumbor-wand-engine    0.1.1
 
 docker run --rm -it -p8902:8000 \
   -e LOG_LEVEL=DEBUG \
