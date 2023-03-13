@@ -69,7 +69,7 @@ setup(
     install_requires=[
         "thumbor=="+version,
         "pillow>=9.0",
-        "JpegIPTC @ git+https://github.com/gdegoulet/JpegIPTC@v1.2"
+        "JpegIPTC>=1.4"
     ],
     extras_require={
         "tests": tests_require,
