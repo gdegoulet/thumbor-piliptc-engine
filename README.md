@@ -95,7 +95,7 @@ You can install the package from this repository with `pip`:
 
 ### Requirements
 -   Python 3.7 or higher
--   Thumbor 7.4.7 or higher (it maybe work with older version >= 7.1.0 : i will test later for compatibility matrix )
+-   Thumbor (same version than thumbor-piliptc-engine )
 -   git (for now, you can only install from github repository )
 -   iptcinfo3 (configured as dependance)
 
