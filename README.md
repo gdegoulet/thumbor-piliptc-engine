@@ -99,7 +99,7 @@ You can install the package from this repository with `pip`:
 -   Python 3.7 or higher
 -   Thumbor (same version than thumbor-piliptc-engine )
 -   git (for now, you can only install from github repository )
--   iptcinfo3 (configured as dependance)
+-   JpegIPTC (configured as dependance)
 
 ```
 root@44171bd2df65:/src# pip install     --no-cache-dir     --prefix="${PYTHONUSERBASE}" git+https://github.com/gdegoulet/thumbor-piliptc-engine
