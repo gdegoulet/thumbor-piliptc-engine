@@ -11,7 +11,7 @@ JPEG IPTC (International Press Telecommunications Council) tags are a set of met
 In Europe, image copyright is protected by various laws and regulations, such as the Berne Convention for the Protection of Literary and Artistic Works and the Directive on the harmonization of certain aspects of copyright and related rights in the information society. These laws provide creators with exclusive rights over their works, including photographs and images, and require that any use of these works by others be authorized or licensed by the creator.
 
 
-The use of JPEG IPTC tags can be particularly helpful in enforcing these copyright laws. In fact, some countries in Europe, such as France and Germany, have enacted specific laws that require the use of IPTC tags on certain types of images, such as those used in advertising and editorial content. These laws require that the copyright owner's name and contact information be included in the IPTC tags, making it easier for potential infringers to identify and contact the owner for permission to use the image.
+The use of JPEG IPTC tags can be particularly helpful in enforcing these copyright laws. **In fact, some countries in Europe, such as France and Germany, have enacted specific laws that require the use of IPTC tags on certain types of images, such as those used in advertising and editorial content.** These laws require that the copyright owner's name and contact information be included in the IPTC tags, making it easier for potential infringers to identify and contact the owner for permission to use the image.
 
 
 
