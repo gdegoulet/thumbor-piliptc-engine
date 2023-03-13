@@ -20,7 +20,7 @@ cp "thumbor/$release/pil.py" "/tmp/pil.py.$$"
 patch -p1 "/tmp/pil.py.$$" "$dir/patch.txt"
 test $? -ne 0 && exit 1
 
-sed -ri "s/^__version__.*$/__version__ ='$release.1'/" "/tmp/pil.py.$$"
+sed -ri "s/^__version__.*$/__version__ = '$release.1'/" "/tmp/pil.py.$$"
 cat "/tmp/pil.py.$$" > "$dir/thumbor_piliptc_engine/engine.py"
 rm -f "/tmp/pil.py.$$"
 echo OK
