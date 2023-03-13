@@ -57,7 +57,7 @@ JpegIPTC               1.1
 libthumbor             2.0.2
 Pillow                 9.4.0
 thumbor                7.4.7
-thumbor-piliptc-engine 7.4.7
+thumbor-piliptc-engine 7.4.7.3
 thumbor-plugins        0.2.4
 thumbor-plugins-gifv   0.1.2
 thumbor-wand-engine    0.1.1
