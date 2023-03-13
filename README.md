@@ -45,6 +45,8 @@ v0.1.0 : pre-release : just a proof of concept : working version but not ready f
 
 **v1.0.0 : add [JpegIPTC](https://github.com/gdegoulet/JpegIPTC) package**
 
+**v7.4.7 : new version modele**
+
 ## Try it !
 
 [https://hub.docker.com/repository/docker/gdegoulet/thumbor_piliptc_engine/general](https://hub.docker.com/repository/docker/gdegoulet/thumbor_piliptc_engine/general)
@@ -55,7 +57,7 @@ JpegIPTC               1.1
 libthumbor             2.0.2
 Pillow                 9.4.0
 thumbor                7.4.7
-thumbor-piliptc-engine 1.1.0
+thumbor-piliptc-engine 7.4.7
 thumbor-plugins        0.2.4
 thumbor-plugins-gifv   0.1.2
 thumbor-wand-engine    0.1.1
