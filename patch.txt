@@ -1,5 +1,5 @@
---- /tmp/pil.py	2023-03-11 13:17:24.049065367 +0100
-+++ /Work/github/thumbor-piliptc-engine/thumbor_piliptc_engine/engine.py	2023-03-12 12:05:33.988909879 +0100
+--- thumbor/7.4.7/pil.py	2023-03-13 23:48:08.522919678 +0100
++++ thumbor_piliptc_engine/engine.py	2023-03-13 19:53:30.677631722 +0100
 @@ -9,6 +9,7 @@
  # Copyright (c) 2011 globo.com thumbor@googlegroups.com
  
@@ -8,34 +8,36 @@
  from io import BytesIO
  from subprocess import PIPE, Popen
  from tempfile import mkstemp
-@@ -21,6 +22,7 @@
+@@ -21,6 +22,9 @@
  from thumbor.engines.extensions.pil import GifWriter
  from thumbor.filters.fill import Filter
  from thumbor.utils import deprecated, ensure_srgb, get_color_space, logger
-+from thumbor_piliptc_engine.JpegIPTC import JpegIPTC
- 
++from JpegIPTC import JpegIPTC
++
++__version__ = '7.4.7.3'
+
  try:
      from thumbor.ext.filters import _composite
-@@ -45,6 +47,7 @@
+@@ -45,6 +49,7 @@
  HAVE_AVIF = _avif is not None
  HAVE_HEIF = HeifImagePlugin is not None
- 
+
 +IPTC_PASSTHROUGH = True
- 
+
  FORMATS = {
      ".tif": "PNG",  # serve tif as png
-@@ -80,6 +83,8 @@
+@@ -80,6 +85,8 @@
          self.qtables = None
          self.original_mode = None
          self.exif = None
 +        # we need to save iptc data from original image between create_image and read function
 +        self.iptc = None
- 
+
          try:
              if self.context.config.MAX_PIXELS is None or int(
-@@ -109,6 +114,18 @@
+@@ -109,6 +116,18 @@
              logger.warning("[PILEngine] create_image failed: %s", error)
- 
+
              return None
 +
 +        if IPTC_PASSTHROUGH:
@@ -52,10 +54,10 @@
          self.icc_profile = img.info.get("icc_profile")
          self.exif = img.info.get("exif")
          self.original_mode = img.mode
-@@ -434,6 +451,17 @@
+@@ -434,6 +453,17 @@
          img_buffer.close()
          self.extension = ext
- 
+
 +        if IPTC_PASSTHROUGH and self.iptc is not None:
 +            iptc_start = datetime.datetime.now()
 +            jpegiptc_object_d = JpegIPTC()
@@ -68,5 +70,5 @@
 +            self.context.metrics.timing("iptc_passthrough_read.time", iptc_total_time)
 +
          return results
- 
+
      def read_multiple(self, images, extension=None):
