@@ -7,6 +7,14 @@ thumbor-piliptc-engine is a patched version from the legacy Pil imaging engine f
 ## IPTC tags :
 JPEG IPTC (International Press Telecommunications Council) tags are a set of metadata that can be embedded into JPEG image files to provide information about the image content, including ownership and copyright information. These tags can be used by photographers, artists, and publishers to identify their work and protect their intellectual property rights. By including IPTC tags in their JPEG images, creators can ensure that their ownership and copyright information is attached to their work and remains with it as it is shared and distributed across the internet. This can be particularly important for photographers and other creators who rely on their work to generate income, as it can help deter unauthorized use and ensure that they are properly credited for their work. In this way, JPEG IPTC tags can play an essential role in protecting the intellectual property of creators and maintaining the integrity of their work.
 
+
+In Europe, image copyright is protected by various laws and regulations, such as the Berne Convention for the Protection of Literary and Artistic Works and the Directive on the harmonization of certain aspects of copyright and related rights in the information society. These laws provide creators with exclusive rights over their works, including photographs and images, and require that any use of these works by others be authorized or licensed by the creator.
+
+
+The use of JPEG IPTC tags can be particularly helpful in enforcing these copyright laws. In fact, some countries in Europe, such as France and Germany, have enacted specific laws that require the use of IPTC tags on certain types of images, such as those used in advertising and editorial content. These laws require that the copyright owner's name and contact information be included in the IPTC tags, making it easier for potential infringers to identify and contact the owner for permission to use the image.
+
+
+
 ## Thumbor :
 
 this project is related with this issue : [Preserve IPTC metadata #1301](https://github.com/thumbor/thumbor/issues/1301)
