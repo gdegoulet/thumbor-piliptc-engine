@@ -34,7 +34,7 @@ version = next((row.split('=', 1)[-1].strip().strip("'").strip('"')
                 for row in open('thumbor_piliptc_engine/engine.py', 'r')
                 if row.startswith('__version__')))
 setup(
-    name="thumbor_piliptc_engine",
+    name="thumbor-piliptc-engine",
     version=version,
     description="Pil imaging engine for Thumbor with IPTC data passthrough",
     long_description=read_readme_contents(),
