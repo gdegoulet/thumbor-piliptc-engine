@@ -12,9 +12,6 @@ from os import path
 from setuptools import setup
 
 
-VERSION = "1.1.0"
-
-
 def read_readme_contents():
     file_dir = path.abspath(path.dirname(__file__))
     with open(path.join(file_dir, "README.md"), encoding="utf-8") as f:
@@ -33,9 +30,12 @@ tests_require = [
     "wheel",
 ]
 
+version = next((row.split('=', 1)[-1].strip().strip("'").strip('"')
+                for row in open('thumbor_piliptc_engine/engine.py', 'r')
+                if row.startswith('__version__')))
 setup(
     name="thumbor_piliptc_engine",
-    version=VERSION,
+    version=version,
     description="Pil imaging engine for Thumbor with IPTC data passthrough",
     long_description=read_readme_contents(),
     long_description_content_type="text/markdown",
@@ -67,7 +67,7 @@ setup(
     packages=["thumbor_piliptc_engine"],
     include_package_data=True,
     install_requires=[
-        "thumbor>=7.1",
+        "thumbor=="+version,
         "pillow>=9.0",
         "JpegIPTC @ git+https://github.com/gdegoulet/JpegIPTC@v1.2"
     ],

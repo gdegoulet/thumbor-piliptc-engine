@@ -24,6 +24,8 @@ from thumbor.filters.fill import Filter
 from thumbor.utils import deprecated, ensure_srgb, get_color_space, logger
 from JpegIPTC import JpegIPTC
 
+__version__ = '7.4.7'
+
 try:
     from thumbor.ext.filters import _composite
 

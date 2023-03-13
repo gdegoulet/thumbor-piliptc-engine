@@ -56,7 +56,7 @@ RUN mkdir "$PYTHONUSERBASE" /etc/thumbor \
       thumbor-plugins==0.2.4 \
       thumbor-wand-engine \
       thumbor=="${THUMBOR_VERSION}" \
-      git+https://github.com/gdegoulet/thumbor-piliptc-engine@v1.1.0 \
+      git+https://github.com/gdegoulet/thumbor-piliptc-engine@v${THUMBOR_VERSION} \
  && chmod +x /install-pillow-SIMD.sh \
  && /install-pillow-SIMD.sh \
  && apt-get clean \
