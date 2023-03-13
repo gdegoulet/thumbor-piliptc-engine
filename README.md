@@ -93,7 +93,7 @@ test.jpg:
 
 You can install the package from this repository with `pip`:
 
-    $ pip install git+https://github.com/gdegoulet/thumbor-piliptc-engine@v7.4.7.2
+    $ pip install git+https://github.com/gdegoulet/thumbor-piliptc-engine@v7.4.7.3
 
     or
 
@@ -106,43 +106,26 @@ You can install the package from this repository with `pip`:
 -   JpegIPTC (configured as dependance)
 
 ```
-root@44171bd2df65:/src# pip install     --no-cache-dir     --prefix="${PYTHONUSERBASE}" git+https://github.com/gdegoulet/thumbor-piliptc-engine
+root@44171bd2df65:/# pip install --no-cache-dir thumbor-piliptc-engine==7.4.7.*
 
-Processing ./thumbor-piliptc-engine
-  Installing build dependencies ... done
-  Getting requirements to build wheel ... done
-  Preparing metadata (pyproject.toml) ... done
-Collecting JpegIPTC@ git+https://github.com/gdegoulet/JpegIPTC@v1.2
-  Cloning https://github.com/gdegoulet/JpegIPTC (to revision v1.2) to /tmp/pip-install-q_46r3la/jpegiptc_ef90d167450740b397ed6774fca992e2
-  Running command git clone --filter=blob:none --quiet https://github.com/gdegoulet/JpegIPTC /tmp/pip-install-q_46r3la/jpegiptc_ef90d167450740b397ed6774fca992e2
-  Resolved https://github.com/gdegoulet/JpegIPTC to commit 88d2433d1eb1e27d3dbe8267cb595d06fb36e092
-  Preparing metadata (setup.py) ... done
-Requirement already satisfied: thumbor>=7.1 in /app/lib/python3.11/site-packages (from thumbor-piliptc-engine==1.1.0) (7.4.7)
-Requirement already satisfied: pillow>=9.0 in /app/lib/python3.11/site-packages (from thumbor-piliptc-engine==1.1.0) (9.4.0)
-Requirement already satisfied: colorama==0.*,>=0.4.3 in /app/lib/python3.11/site-packages (from thumbor>=7.1->thumbor-piliptc-engine==1.1.0) (0.4.6)
-Requirement already satisfied: derpconf==0.*,>=0.8.3 in /app/lib/python3.11/site-packages (from thumbor>=7.1->thumbor-piliptc-engine==1.1.0) (0.8.3)
-Requirement already satisfied: libthumbor==2.*,>=2.0.2 in /app/lib/python3.11/site-packages (from thumbor>=7.1->thumbor-piliptc-engine==1.1.0) (2.0.2)
-Requirement already satisfied: piexif==1.*,>=1.1.3 in /app/lib/python3.11/site-packages (from thumbor>=7.1->thumbor-piliptc-engine==1.1.0) (1.1.3)
-Requirement already satisfied: pytz>=2019.3.0 in /app/lib/python3.11/site-packages (from thumbor>=7.1->thumbor-piliptc-engine==1.1.0) (2022.7.1)
-Requirement already satisfied: statsd==3.*,>=3.3.0 in /app/lib/python3.11/site-packages (from thumbor>=7.1->thumbor-piliptc-engine==1.1.0) (3.3.0)
-Requirement already satisfied: tornado==6.*,>=6.0.3 in /app/lib/python3.11/site-packages (from thumbor>=7.1->thumbor-piliptc-engine==1.1.0) (6.2)
-Requirement already satisfied: thumbor-plugins-gifv==0.*,>=0.1.2 in /app/lib/python3.11/site-packages (from thumbor>=7.1->thumbor-piliptc-engine==1.1.0) (0.1.2)
-Requirement already satisfied: webcolors==1.*,>=1.10.0 in /app/lib/python3.11/site-packages (from thumbor>=7.1->thumbor-piliptc-engine==1.1.0) (1.11.1)
-Requirement already satisfied: six in /app/lib/python3.11/site-packages (from derpconf==0.*,>=0.8.3->thumbor>=7.1->thumbor-piliptc-engine==1.1.0) (1.16.0)
-Building wheels for collected packages: thumbor-piliptc-engine, JpegIPTC
-  Building wheel for thumbor-piliptc-engine (pyproject.toml) ... done
-  Created wheel for thumbor-piliptc-engine: filename=thumbor_piliptc_engine-1.1.0-py3-none-any.whl size=16750 sha256=94a8fc46f363d22a3bd2c1f15989952bcbbde53ec116dc5db9c9a9e262112a57
-  Stored in directory: /tmp/pip-ephem-wheel-cache-tjp9zvzc/wheels/f0/21/40/0e8f20f4be68abb8d80c9cf2fe548f6f3cfd352df72825930c
-  Building wheel for JpegIPTC (setup.py) ... done
-  Created wheel for JpegIPTC: filename=JpegIPTC-1.1-py3-none-any.whl size=7268 sha256=37a3edbbe2c6ab462aa7c65a83ed0e6be7b67f26c09a05c75d591283fb51dbaa
-  Stored in directory: /tmp/pip-ephem-wheel-cache-tjp9zvzc/wheels/c3/f2/e5/05cf3aa7051cf5d7db96fa57f2b7bd453d867f448b016c70c3
-Successfully built thumbor-piliptc-engine JpegIPTC
+Collecting thumbor-piliptc-engine==7.4.7.*
+  Downloading thumbor_piliptc_engine-7.4.7.3-py3-none-any.whl (14 kB)
+Requirement already satisfied: thumbor==7.4.7 in /app/lib/python3.11/site-packages (from thumbor-piliptc-engine==7.4.7.*) (7.4.7)
+Requirement already satisfied: pillow>=9.0 in /app/lib/python3.11/site-packages (from thumbor-piliptc-engine==7.4.7.*) (9.4.0)
+Collecting JpegIPTC>=1.4
+  Downloading JpegIPTC-1.4-py3-none-any.whl (9.7 kB)
+Requirement already satisfied: colorama==0.*,>=0.4.3 in /app/lib/python3.11/site-packages (from thumbor==7.4.7->thumbor-piliptc-engine==7.4.7.*) (0.4.6)
+Requirement already satisfied: derpconf==0.*,>=0.8.3 in /app/lib/python3.11/site-packages (from thumbor==7.4.7->thumbor-piliptc-engine==7.4.7.*) (0.8.3)
+Requirement already satisfied: libthumbor==2.*,>=2.0.2 in /app/lib/python3.11/site-packages (from thumbor==7.4.7->thumbor-piliptc-engine==7.4.7.*) (2.0.2)
+Requirement already satisfied: piexif==1.*,>=1.1.3 in /app/lib/python3.11/site-packages (from thumbor==7.4.7->thumbor-piliptc-engine==7.4.7.*) (1.1.3)
+Requirement already satisfied: pytz>=2019.3.0 in /app/lib/python3.11/site-packages (from thumbor==7.4.7->thumbor-piliptc-engine==7.4.7.*) (2022.7.1)
+Requirement already satisfied: statsd==3.*,>=3.3.0 in /app/lib/python3.11/site-packages (from thumbor==7.4.7->thumbor-piliptc-engine==7.4.7.*) (3.3.0)
+Requirement already satisfied: tornado==6.*,>=6.0.3 in /app/lib/python3.11/site-packages (from thumbor==7.4.7->thumbor-piliptc-engine==7.4.7.*) (6.2)
+Requirement already satisfied: thumbor-plugins-gifv==0.*,>=0.1.2 in /app/lib/python3.11/site-packages (from thumbor==7.4.7->thumbor-piliptc-engine==7.4.7.*) (0.1.2)
+Requirement already satisfied: webcolors==1.*,>=1.10.0 in /app/lib/python3.11/site-packages (from thumbor==7.4.7->thumbor-piliptc-engine==7.4.7.*) (1.11.1)
+Requirement already satisfied: six in /app/lib/python3.11/site-packages (from derpconf==0.*,>=0.8.3->thumbor==7.4.7->thumbor-piliptc-engine==7.4.7.*) (1.16.0)
 Installing collected packages: JpegIPTC, thumbor-piliptc-engine
-  Attempting uninstall: thumbor-piliptc-engine
-    Found existing installation: thumbor-piliptc-engine 0.3.0
-    Uninstalling thumbor-piliptc-engine-0.3.0:
-      Successfully uninstalled thumbor-piliptc-engine-0.3.0
-Successfully installed JpegIPTC-1.1 thumbor-piliptc-engine-1.1.0
+Successfully installed JpegIPTC-1.4 thumbor-piliptc-engine-7.4.7.3
 ```
 
 
