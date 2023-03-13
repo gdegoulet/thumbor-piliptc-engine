@@ -14,8 +14,8 @@ exclude = '''
       \.eggs
     | \.git
     | \.tox
-    | thumbor
-    | thumbor_integration_tests
+    | build
+    | docker 
   )/
 )
 '''
