@@ -33,6 +33,9 @@ tests_require = [
 version = next((row.split('=', 1)[-1].strip().strip("'").strip('"')
                 for row in open('thumbor_piliptc_engine/engine.py', 'r')
                 if row.startswith('__version__')))
+vs = version.split(".")
+thumbor_version = vs[0]+"."+vs[1]+"."+vs[2]
+
 setup(
     name="thumbor-piliptc-engine",
     version=version,
@@ -67,7 +70,7 @@ setup(
     packages=["thumbor_piliptc_engine"],
     include_package_data=True,
     install_requires=[
-        "thumbor=="+version,
+        "thumbor=="+thumbor_version,
         "pillow>=9.0",
         "JpegIPTC>=1.4"
     ],
