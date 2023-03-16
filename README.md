@@ -13,6 +13,13 @@ In Europe, image copyright is protected by various laws and regulations, such as
 
 The use of JPEG IPTC tags can be particularly helpful in enforcing these copyright laws. **In fact, some countries in Europe, such as France and Germany, have enacted specific laws that require the use of IPTC tags on certain types of images, such as those used in advertising and editorial content.** These laws require that the copyright owner's name and contact information be included in the IPTC tags, making it easier for potential infringers to identify and contact the owner for permission to use the image.
 
+## EXIF / IPTC Metadata Impacts Image SEO
+
+EXIF metadata is used by cameras to store information in photos, during image compression. They embed data such as date, time, camera model and settings, geolocation, etc. They are sometimes used by the police to find out where a picture was taken. They are useful for Google algorithms because they carry out specific data about your picture. IPTC / EXIF data might be extremely relevant for local SEO.
+
+” It is something that Google is able to parse out and I think we do reserve the right to use it in ranking! “
+
+[Does Google use EXIF data from pictures as a ranking factor?](https://www.youtube.com/watch?v=GMf6FmRus2M&t=17s)
 
 
 ## Thumbor :
