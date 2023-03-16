@@ -21,6 +21,8 @@ EXIF metadata is used by cameras to store information in photos, during image co
 
 [Does Google use EXIF data from pictures as a ranking factor?](https://www.youtube.com/watch?v=GMf6FmRus2M&t=17s)
 
+[more information here](https://www.deanlong.io/blog/image-seo-best-practices-for-visibility)
+
 
 ## Thumbor :
 
