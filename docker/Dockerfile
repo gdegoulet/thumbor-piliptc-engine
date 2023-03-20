@@ -1,5 +1,5 @@
 # Build
-FROM python:3.11-slim-bullseye as build
+FROM docker.io/python:3.11-slim-bullseye as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -63,7 +63,7 @@ RUN mkdir "$PYTHONUSERBASE" /etc/thumbor \
  && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.11-slim-bullseye
+FROM docker.io/python:3.11-slim-bullseye
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
