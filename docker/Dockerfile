@@ -30,7 +30,7 @@ RUN mkdir "$PYTHONUSERBASE" /etc/thumbor \
     libopencv-dev=4.5.1+dfsg-5 \
     libpng-dev=1.6.37-3 \
     libssl-dev \
-    libtiff5-dev=4.2.0-1+deb11u1 \
+    libtiff5-dev=4.2.0-1+deb11u4 \
     webp=0.6.1-2.1 \
     libmagickwand-dev \
     git \
