@@ -9,7 +9,7 @@ ENV \
   PILLOW_VERSION_MIN=9.0.0
 
 ENV VERSION_graphicsmagick=1.4+really1.3.36+hg16481-2+deb11u1
-ENV VERSION_ffmpeg=7:4.3.5-0+deb11u1
+ENV VERSION_ffmpeg=7:4.3.6-0+deb11u1
 
 ARG THUMBOR_VERSION=7.4.7
 ARG SIMD_LEVEL=no-cpu-optimization
