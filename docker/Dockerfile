@@ -40,7 +40,7 @@ RUN mkdir "$PYTHONUSERBASE" /etc/thumbor \
     --no-cache-dir \
     --prefix="${PYTHONUSERBASE}" \
       envtpl==0.7.2 \
-      cairosvg>=2.6.0 \
+      cairosvg>=2.5.0 \
       numpy==1.24.2 \
       opencv-python-headless==4.7.0.72 \
       pillow>=$PILLOW_VERSION_MIN \
@@ -99,7 +99,7 @@ RUN groupadd -g 301 ftponly \
  && apt-get update > /dev/null \
  && apt-get install -y -qq --no-install-recommends \
     ca-certificates=20210119 \
-    cairosvg=2.5.0-1.1 \
+    cairosvg=2.5.0-1.1+deb11u1 \
     ffmpeg=${VERSION_ffmpeg} \
     gifsicle=1.92-2+b1 \
     graphicsmagick=${VERSION_graphicsmagick} \
