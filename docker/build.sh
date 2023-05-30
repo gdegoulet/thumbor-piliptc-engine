@@ -2,6 +2,7 @@
 cd $(dirname $(readlink -f $0))
 test ! -f ../thumbor_piliptc_engine/engine.py && exit 1
 THUMBOR_VERSION=$(fgrep __version__ ../thumbor_piliptc_engine/engine.py |cut -d "'" -f2 | cut -d '.' -f1-3)
+THUMBOR_VERSION=7.5.0
 echo "building $THUMBOR_VERSION"
 docker build --no-cache --pull -t docker.io/gdegoulet/thumbor_piliptc_engine:${THUMBOR_VERSION}-avx2 --build-arg THUMBOR_VERSION=$THUMBOR_VERSION --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') --build-arg SIMD_LEVEL=avx2 .
 test $? -ne 0 && exit 1
