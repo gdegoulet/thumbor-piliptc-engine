@@ -124,6 +124,11 @@ SEND_IF_MODIFIED_LAST_MODIFIED_HEADERS = {{ SEND_IF_MODIFIED_LAST_MODIFIED_HEADE
 ## Defaults to: False
 PRESERVE_EXIF_INFO = {{ PRESERVE_EXIF_INFO | default(False) }}
 
+## Preserves iptc information in generated images. Increases image size in
+## kbytes, use with caution.
+## Defaults to: True
+PRESERVE_IPTC_INFO = {{ PRESERVE_IPTC_INFO | default(True) }}
+
 PRESERVE_EXIF_COPYRIGHT_INFO = {{ PRESERVE_EXIF_COPYRIGHT_INFO | default(True) }}
 
 ## Indicates whether thumbor should enable the EXPERIMENTAL support for animated
@@ -183,7 +188,7 @@ RESULT_STORAGE = '{{ RESULT_STORAGE | default('thumbor.result_storages.file_stor
 ## The imaging engine thumbor should use to perform image operations. This must
 ## be the full name of a python module (python must be able to import it)
 ## Defaults to: thumbor.engines.pil
-ENGINE = '{{ ENGINE | default('thumbor_piliptc_engine') }}'
+ENGINE = '{{ ENGINE | default('thumbor.engines.pil') }}'
 
 ## The gif engine thumbor should use to perform image operations. This must be
 ## the full name of a python module (python must be able to import it)
@@ -308,7 +313,7 @@ HTTP_LOADER_FORWARD_HEADERS_WHITELIST = {{ HTTP_LOADER_FORWARD_HEADERS_WHITELIST
 
 ## Default user agent for thumbor http loader requests
 ## Defaults to: Thumbor/6.3.0
-HTTP_LOADER_DEFAULT_USER_AGENT = '{{ HTTP_LOADER_DEFAULT_USER_AGENT | default('Thumbor/6.3.0') }}'
+HTTP_LOADER_DEFAULT_USER_AGENT = '{{ HTTP_LOADER_DEFAULT_USER_AGENT | default('Thumbor/7.5.0') }}'
 
 ## The proxy host needed to load images through
 ## Defaults to: None
