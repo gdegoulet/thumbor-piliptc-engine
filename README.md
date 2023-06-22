@@ -2,7 +2,7 @@
 
 thumbor-piliptc-engine is a patched version from the legacy Pil imaging engine for [thumbor](https://github.com/thumbor/thumbor).
 
-Warning : Since [Thumbor release 7.5.0](https://github.com/thumbor/thumbor/releases) , "piliptc" feature is integrated to official thumbor : this project will no more be maintained.
+Warning : Since [Thumbor release 7.5.1](https://github.com/thumbor/thumbor/releases) , "piliptc" feature is integrated to official thumbor : this project will no more be maintained.
 
 ![](/thumbor-piliptc-engine.png?raw=true)
 

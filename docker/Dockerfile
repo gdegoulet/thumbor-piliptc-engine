@@ -11,7 +11,7 @@ ENV \
 ENV VERSION_graphicsmagick=1.4+really1.3.36+hg16481-2+deb11u1
 ENV VERSION_ffmpeg=7:4.3.6-0+deb11u1
 
-ARG THUMBOR_VERSION=7.5.0
+ARG THUMBOR_VERSION=7.5.1
 ARG SIMD_LEVEL=no-cpu-optimization
 COPY install-pillow-SIMD.sh /install-pillow-SIMD.sh
 
@@ -77,7 +77,7 @@ ENV VERSION_ffmpeg=7:4.3.6-0+deb11u1
 
 ARG BUILD_DATE
 ARG SIMD_LEVEL=no-cpu-optimization
-ARG THUMBOR_VERSION=7.5.0
+ARG THUMBOR_VERSION=7.5.1
 
 LABEL maintainer="docker@degoulet.net" \
   org.label-schema.build-date="$BUILD_DATE" \
